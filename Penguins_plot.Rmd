@@ -1,0 +1,84 @@
+---
+title: "Penguins_Plot"
+author: "Vergil Wong"
+date: "9/11/2021"
+output:
+  html_document: default
+  word_document: default
+  pdf_document: default
+---
+
+
+
+### Setting up my environment
+Notes: Setting up my R environment by loading the 'tidyverse', and 'Palmer Panguins' packages.
+
+
+
+```{r loading packages, message=FALSE, warning=FALSE}
+library(tidyverse)
+library(palmerpenguins)
+library(ggplot2)
+```
+
+
+
+### View the data 
+```{r warning=FALSE}
+glimpse(penguins)
+
+```
+
+
+
+### Penguins Flipper and body mass comparison in purple
+```{r warning=FALSE}
+penguins %>% 
+  ggplot(aes(x=flipper_length_mm, y=body_mass_g))+
+  geom_point(color="purple") + geom_smooth(method = lm, color = 'Black')
+
+```
+
+
+
+### Bill length and bill depth by species and sex
+```{r warning=FALSE}
+penguins %>% 
+  ggplot(aes(x=bill_length_mm, y=bill_depth_mm, color=sex))+
+  geom_point()+
+  facet_wrap(~species)
+```
+
+
+
+### Fliper and body mass by species
+```{r warning=FALSE}
+penguins %>% 
+  ggplot(aes(x=flipper_length_mm, y=body_mass_g, shape=species))+
+  geom_point()
+```
+
+
+
+### Flipper and body mass by species and sex
+```{r warning=FALSE}
+penguins %>% 
+  drop_na(sex) %>% 
+  ggplot(aes(x=flipper_length_mm, y=body_mass_g, Color=sex, shape=species))+
+  geom_point()+
+  facet_wrap(~sex)
+```
+
+
+
+### Comparison of Three Species of Penguins
+```{r}
+penguins %>% 
+ggplot(aes(x=flipper_length_mm, y=body_mass_g, color= species))+
+  geom_point()+
+  labs(title = "Palmer Penguins: Body Mass vs, Flipper Length", 
+       subtitle = "Sample of Three Penguins",
+       caption = "Data collected by Dr. Kristen Gorman") +
+  annotate("text",x=220,y=3500, label="The Gentoo are the largest", color="purple")
+```
+
